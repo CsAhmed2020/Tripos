@@ -1,7 +1,8 @@
-package com.example.tripso
+package com.example.tripso.ui.settings
 
 import android.os.Bundle
 import androidx.preference.PreferenceFragmentCompat
+import com.example.tripso.R
 
 class SettingsFragment : PreferenceFragmentCompat() {
 

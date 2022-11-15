@@ -20,4 +20,32 @@
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="tv_login_forget_password">Forget Password!</string>
+    <string name="btn_login">Log In</string>
+    <string name="haven_not_account">You haven\'t an Account ?!</string>
+    <string name="sign_up">Sign Up</string>
+    <!-- Strings related to login -->
+    <string name="prompt_user_name">User Name</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_up">Sign Up</string>
+    <string name="welcome">"Welcome!"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="error_sign_up">There was an error in registration.</string>
+    <string name="error_user_not_found">User with this email doesn\'t exist.</string>
+    <string name="error_wrong_password">Your password is wrong.</string>
+    <string name="error_sign_in">There was an error in login.</string>
+    <string name="error_logout">An error occurred while log out, try again.</string>
+    <string name="error_reset_password">Error in reset password</string>
+    <string name="action_sign_in">Log In</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="sign_up_with">Sign Up With</string>
+    <string name="error_email_already_in_use">This email already used</string>
+    <string name="prompt_phone">Phone</string>
+    <string name="haven_account">You have an account</string>
+    <string name="error_fill_all_fields">Please fill all fields.</string>
+    <string name="error_email_badly_formatted">The email address is badly formatted.</string>
+    <string name="error_invalid_password">Invalid Password</string>
+    <string name="error_invalid_phone">Invalid Phone Number</string>
 </resources>
