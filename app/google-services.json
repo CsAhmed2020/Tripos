@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "382799726727",
+    "project_id": "tripreminderapp-c36c3",
+    "storage_bucket": "tripreminderapp-c36c3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:382799726727:android:41b92b285a5502544b1022",
+        "android_client_info": {
+          "package_name": "com.example.tripreminderapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "382799726727-f0lk9ueq1r4f76im64kl0aq81pp7od40.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWZaARllSYxpPbtoyFncXqQuW1wGfojjI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "382799726727-f0lk9ueq1r4f76im64kl0aq81pp7od40.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:382799726727:android:d85684954b1fd4f24b1022",
+        "android_client_info": {
+          "package_name": "com.example.tripso"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "382799726727-f0lk9ueq1r4f76im64kl0aq81pp7od40.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWZaARllSYxpPbtoyFncXqQuW1wGfojjI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "382799726727-f0lk9ueq1r4f76im64kl0aq81pp7od40.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
