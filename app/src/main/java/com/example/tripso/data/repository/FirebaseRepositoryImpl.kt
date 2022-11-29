@@ -4,17 +4,25 @@ import android.net.Uri
 import android.util.Log
 import com.example.tripso.R
 import com.example.tripso.data.DataStateResult
+import com.example.tripso.domain.model.Trip
 import com.example.tripso.domain.model.User
 import com.example.tripso.domain.repository.FirebaseRepository
 import com.example.tripso.domain.util.Constants
 import com.example.tripso.domain.util.DataStoreUtils
 import com.example.tripso.domain.util.PrefsConstants
+import com.example.tripso.domain.util.Utils
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import kotlinx.coroutines.*
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.channels.trySendBlocking
+import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
 import java.util.*
 import javax.inject.Inject
@@ -40,6 +48,7 @@ class FirebaseRepositoryImpl @Inject constructor(
                 userName,
                 phone
             )
+
             result = DataStateResult.Success()
         } catch (e: FirebaseAuthException) {
             when (e.errorCode) {
@@ -54,7 +63,7 @@ class FirebaseRepositoryImpl @Inject constructor(
         return result
     }
 
-    private suspend fun saveUserInDB(
+    override suspend fun saveUserInDB(
         name: String,
         phone: String
     ) {
@@ -65,23 +74,11 @@ class FirebaseRepositoryImpl @Inject constructor(
             )
 
             firebaseDatabase.getReference(Constants.REFERENCE_USERS)
-                .child(FirebaseAuth.getInstance().currentUser!!.uid)
+                .child(Utils.getCurrentUserId())
                 .setValue(user).await()
-
         }
-    }
 
-    //not used yet
-    private suspend fun saveProfileImageInFirebaseStorage(profileImage: Uri): String {
-        var profileImageUrl = ""
-        try {
-            val imageName = UUID.randomUUID().toString()
-            profileImageUrl = Firebase.storage.reference.child("profile_images/$imageName")
-                .putFile(profileImage).await().storage.downloadUrl.await().toString()
-        } catch (e: Exception) {
-            Log.d(TAG, "Error: saveProfileImageInFirebaseStorage(): ${e.message}")
-        }
-        return profileImageUrl
+        saveAllCurrentUserInformationLocally(User(userName = name,phone = phone))
     }
 
 
@@ -89,6 +86,7 @@ class FirebaseRepositoryImpl @Inject constructor(
         var result: DataStateResult<Unit> = DataStateResult.Loading()
         try {
             firebaseAuth.signInWithEmailAndPassword(email, password).await()
+
             result = DataStateResult.Success()
         } catch (e: FirebaseAuthException) {
             when (e.errorCode) {
@@ -104,6 +102,37 @@ class FirebaseRepositoryImpl @Inject constructor(
             result = DataStateResult.Error(R.string.error_sign_in)
         }
         return result
+    }
+
+
+    private suspend fun saveAllCurrentUserInformationLocally(currentUser: User?) {
+        currentUser?.let { user ->
+            DataStoreUtils.savePreference(
+                key = PrefsConstants.MY_USER_NAME,
+                value = user.userName
+            )
+            DataStoreUtils.savePreference(
+                key = PrefsConstants.MY_USER_EMAIL,
+                value = FirebaseAuth.getInstance().currentUser!!.email.toString()
+            )
+            DataStoreUtils.savePreference(
+                key = PrefsConstants.MY_USER_PHONE,
+                value = user.phone
+            )
+        }
+    }
+
+    //not used yet
+    private suspend fun saveProfileImageInFirebaseStorage(profileImage: Uri): String {
+        var profileImageUrl = ""
+        try {
+            val imageName = UUID.randomUUID().toString()
+            profileImageUrl = Firebase.storage.reference.child("profile_images/$imageName")
+                .putFile(profileImage).await().storage.downloadUrl.await().toString()
+        } catch (e: Exception) {
+            Log.d(TAG, "Error: saveProfileImageInFirebaseStorage(): ${e.message}")
+        }
+        return profileImageUrl
     }
 
     override suspend fun resetPassword(email: String): DataStateResult<Unit> {
@@ -131,22 +160,45 @@ class FirebaseRepositoryImpl @Inject constructor(
         return result
     }
 
-
-    //not used yet
-    private suspend fun saveAllCurrentUserInformationLocally(currentUser: User?) {
-        currentUser?.let { user ->
-            DataStoreUtils.savePreference(
-                key = PrefsConstants.MY_USER_NAME,
-                value = user.userName
-            )
-            DataStoreUtils.savePreference(
-                key = PrefsConstants.MY_USER_PHONE,
-                value = user.phone
-            )
+    override suspend fun addTrip(trip: Trip?, reference:String) {
+        val userId = firebaseAuth.currentUser?.uid
+        userId?.let {
+            firebaseDatabase.getReference(reference)
+                .child(Utils.getCurrentUserId())
+                .child(trip?.tripName + trip?.tripFrom +trip?.tripTo)
+                .setValue(trip).await()
         }
+
     }
 
+    override suspend fun getTrips(reference: String) = callbackFlow<DataStateResult<List<Trip>>> {
+        val trips = mutableListOf<Trip>()
+        val postListener = object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                snapshot.children.map { ds ->
+                    val result = ds.getValue(Trip::class.java)
+                    result?.startDate = Utils.convertLongToTime(result?.startDate?.toLong()!!)
+                    result.endDate = Utils.convertLongToTime(result.endDate?.toLong()!!)
+                    trips.add(result)
+                }
+                this@callbackFlow.trySendBlocking(DataStateResult.Success(data = trips.toList()))
+            }
 
+            override fun onCancelled(error: DatabaseError) {
+                Log.d("Ahmed","DatabaseError: ${error.message}")
+                this@callbackFlow.trySendBlocking(DataStateResult.Error(errorMessageResId = error.code))
+            }
+        }
+        firebaseDatabase.getReference(reference)
+            .child(Utils.getCurrentUserId())
+            .addValueEventListener(postListener)
+
+        awaitClose {
+            firebaseDatabase.getReference(reference)
+                .child(Utils.getCurrentUserId())
+                .removeEventListener(postListener)
+        }
+    }
 }
 
 

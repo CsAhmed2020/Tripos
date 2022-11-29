@@ -9,8 +9,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.example.tripso.R
 import com.example.tripso.databinding.FragmentLoginBinding
 import com.example.tripso.data.DataStateResult
+import com.example.tripso.domain.util.Constants
 
 
 class LoginFragment : Fragment() {
@@ -26,7 +28,7 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
         return binding.root
@@ -58,7 +60,10 @@ class LoginFragment : Fragment() {
                 is DataStateResult.Loading -> loadingProgressBar.visibility = View.VISIBLE
                 is DataStateResult.Success ->{
                     loadingProgressBar.visibility = View.GONE
-                    findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
+                    if (!Constants.LogOutTag) {
+                        findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
+                    }
+
                 }
             }
         }

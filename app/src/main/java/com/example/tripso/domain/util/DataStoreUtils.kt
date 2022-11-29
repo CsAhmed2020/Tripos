@@ -17,23 +17,14 @@ val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "se
 object DataStoreUtils {
 
 
-    fun readPreference(key: String, defaultValue: Int): Flow<Int> {
+    /*fun readPreference(key: String, defaultValue: Int): Flow<Int> {
         val keyPreferences = intPreferencesKey(key)
         return MyApplication.context.dataStore.data.map {
             it[keyPreferences] ?: defaultValue
         }
-    }
+    }*/
 
-    fun readPreferenceWithoutFlow(key: String, defaultValue: Int): Int {
-        val keyPreferences = intPreferencesKey(key)
-        return runBlocking {
-            MyApplication.context.dataStore.data.map {
-                it[keyPreferences] ?: defaultValue
-            }.first()
-        }
-    }
-
-    fun readPreferenceWithoutFlow (key: String,defaultValue: String) : String {
+    fun readPreference (key: String,defaultValue: String) : String {
         val keyPreferences = stringPreferencesKey(key)
         return runBlocking {
             MyApplication.context.dataStore.data.map {
@@ -42,21 +33,6 @@ object DataStoreUtils {
         }
     }
 
-    fun readPreferenceWithoutFlow(key: String, defaultValue: Boolean): Boolean {
-        val keyPreferences = booleanPreferencesKey(key)
-        return runBlocking {
-            MyApplication.context.dataStore.data.map {
-                it[keyPreferences] ?: defaultValue
-            }.first()
-        }
-    }
-
-    suspend fun savePreference(key: String, value: Int) {
-        val keyPreferences = intPreferencesKey(key)
-        MyApplication.context.dataStore.edit {
-            it[keyPreferences] = value
-        }
-    }
 
     suspend fun savePreference(key: String, value: String) {
         val keyPreferences = stringPreferencesKey(key)
@@ -65,11 +41,5 @@ object DataStoreUtils {
         }
     }
 
-    suspend fun savePreference(key: String, value: Boolean) {
-        val keyPreferences = booleanPreferencesKey(key)
-        MyApplication.context.dataStore.edit {
-            it[keyPreferences] = value
-        }
-    }
 
 }

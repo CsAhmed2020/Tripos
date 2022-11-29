@@ -4,22 +4,6 @@
     <string name="menu_history">History</string>
     <string name="menu_settings">Settings</string>
     <string name="menu_profile">Me</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <!-- Preference Titles -->
-    <string name="messages_header">Messages</string>
-    <string name="sync_header">Sync</string>
-
-    <!-- Messages Preferences -->
-    <string name="signature_title">Your signature</string>
-    <string name="reply_title">Default reply action</string>
-
-    <!-- Sync Preferences -->
-    <string name="sync_title">Sync email periodically</string>
-    <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
-    </string>
-    <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="tv_login_forget_password">Forget Password!</string>
     <string name="btn_login">Log In</string>
     <string name="haven_not_account">You haven\'t an Account ?!</string>
@@ -48,4 +32,25 @@
     <string name="error_email_badly_formatted">The email address is badly formatted.</string>
     <string name="error_invalid_password">Invalid Password</string>
     <string name="error_invalid_phone">Invalid Phone Number</string>
+    <string name="add_trip_head">Add trip details</string>
+    <string name="trip_name">Title</string>
+    <string name="trip_from">Trip From</string>
+    <string name="destination">Destination</string>
+    <string name="date">Date</string>
+    <string name="add_edit_trip">New Trip</string>
+    <string name="save">Save</string>
+    <string name="error_get_trips">Failed to retrieve trips</string>
+    <string name="your_last_trips">Your LAst Trips</string>
+    <string name="edit">Edit</string>
+    <string name="app_lang">App Language</string>
+    <string name="arabic">Arabic</string>
+    <string name="english_rb">English</string>
+    <string name="log_out">Log out</string>
+    <string name="reset_pass">Reset Password</string>
+    <string name="reset">Reset</string>
+    <string name="no_available_trips">No Available Trips</string>
+    <string name="error_retrieve_data">An error occurred while retrieve data, try again.</string>
+    <string name="your_next_trips">Your Next Trips</string>
+    <string name="check_email">Check your email now</string>
+    <string name="saved">Saved</string>
 </resources>

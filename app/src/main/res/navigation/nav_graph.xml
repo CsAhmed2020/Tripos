@@ -37,6 +37,22 @@
         android:name="com.example.tripso.ui.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
+
+        <action
+            android:id="@+id/action_toAddEditTripFragment"
+            app:destination="@id/add_edit_fragment"/>
+
+        <action
+            android:id="@+id/action_toLogin"
+            app:destination="@id/loginFragment"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/add_edit_fragment"
+        android:name="com.example.tripso.ui.home.addEditTrip.AddEditTripFragment"
+        android:label="@string/add_edit_trip"
+        tools:layout="@layout/fragment_add_edit_trip">
     </fragment>
     <fragment
         android:id="@+id/historyFragment"
@@ -45,6 +61,7 @@
         tools:layout="@layout/fragment_history" >
 
     </fragment>
+
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.tripso.ui.profile.ProfileFragment"
@@ -52,11 +69,15 @@
         tools:layout="@layout/fragment_profile" >
 
     </fragment>
+
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.tripso.ui.settings.SettingsFragment"
-        android:label="SettingsFragment" >
-        
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings">
+        <action
+            android:id="@+id/action_toLoginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
 
 </navigation>

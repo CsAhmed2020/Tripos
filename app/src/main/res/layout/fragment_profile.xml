@@ -1,15 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+        <variable
+            name="profileViewModel"
+            type="com.example.tripso.ui.profile.ProfileViewModel" />
+    </data>
+
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.profile.ProfileFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="Profile" />
+        android:orientation="vertical"
+        android:layout_marginHorizontal="@dimen/small_padding"
+        android:layout_marginVertical="@dimen/medium_padding">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/edit_btn"
+            android:text="@string/edit"
+            android:layout_gravity="end"
+            android:layout_marginVertical="@dimen/medium_padding"
+            android:layout_marginHorizontal="@dimen/small_padding"
+            android:backgroundTint="@color/teal_700"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/prompt_user_name"
+            android:textSize="16sp"/>
+
+        <EditText
+            android:id="@+id/user_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/prompt_user_name"
+            android:text="@={profileViewModel.userName}"
+            android:selectAllOnFocus="true"
+            android:enabled="false"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/prompt_email"
+            android:textSize="16sp"
+            android:layout_marginVertical="@dimen/small_padding"/>
+
+        <EditText
+            android:id="@+id/user_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/prompt_email"
+            android:text="@={profileViewModel.userEmail}"
+            android:selectAllOnFocus="true"
+            android:enabled="false"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/prompt_phone"
+            android:textSize="16sp"
+            android:layout_marginVertical="@dimen/small_padding"/>
+
+        <EditText
+            android:id="@+id/user_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/prompt_phone"
+            android:text="@={profileViewModel.userPhone}"
+            android:selectAllOnFocus="true"
+            android:enabled="false"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/save_btn"
+            android:text="@string/save"
+            android:layout_gravity="center"
+            android:layout_marginVertical="@dimen/medium_padding"
+            android:backgroundTint="@color/teal_700"
+            android:onClick="@{() -> profileViewModel.updateProfileData()}"
+            />
+
+    </LinearLayout>
 
 </FrameLayout>
+</layout>

@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tripso.data.DataStateResult
 import com.example.tripso.domain.repository.FirebaseRepository
+import com.example.tripso.domain.util.Constants
 import com.example.tripso.domain.util.Utils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -77,6 +78,7 @@ class LoginViewModel @Inject constructor(
                         _dataStateResult.postValue(DataStateResult.Error())
                     }
                     is DataStateResult.Success -> {
+                        Constants.LogOutTag = false
                         _dataStateResult.postValue(DataStateResult.Success())
                     }
                     else -> {}
