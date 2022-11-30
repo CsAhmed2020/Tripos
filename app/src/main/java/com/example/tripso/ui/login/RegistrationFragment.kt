@@ -7,8 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.example.tripso.R
 import com.example.tripso.data.DataStateResult
 import com.example.tripso.databinding.FragmentRegestrationBinding
+import com.example.tripso.domain.util.Utils
 
 
 class RegistrationFragment : Fragment() {
@@ -48,6 +50,7 @@ class RegistrationFragment : Fragment() {
             when(state){
                 is DataStateResult.Error -> {
                     loadingProgressBar.visibility = View.GONE
+                    Utils.showToast(R.string.error_sign_up)
                 }
                 is DataStateResult.Loading -> loadingProgressBar.visibility = View.VISIBLE
                 is DataStateResult.Success -> {

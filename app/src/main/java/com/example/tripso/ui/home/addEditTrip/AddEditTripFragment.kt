@@ -1,7 +1,6 @@
 package com.example.tripso.ui.home.addEditTrip
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,15 +9,11 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.tripso.R
 import com.example.tripso.databinding.FragmentAddEditTripBinding
-import com.example.tripso.domain.util.Utils
 import com.example.tripso.domain.util.Utils.convertLongToTime
 import com.example.tripso.domain.util.setAlarm
 import com.example.tripso.ui.home.HomeViewModel
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.snackbar.Snackbar
-import dagger.hilt.android.AndroidEntryPoint
-import java.text.SimpleDateFormat
-import java.util.*
 
 
 class AddEditTripFragment : Fragment() {
@@ -54,7 +49,10 @@ class AddEditTripFragment : Fragment() {
         homeViewModel.saved.observe(viewLifecycleOwner){
             if (it){
                 Snackbar.make(this.requireView(),getString(R.string.saved),Snackbar.LENGTH_SHORT).show()
-                this.requireContext().setAlarm(homeViewModel.tripStart.value!!.toLong())
+                this.requireContext().setAlarm(homeViewModel.tripStart.value!!.toLong(),
+                title = getString(R.string.trip_ready), description = homeViewModel.tripName.value.toString())
+                this.requireContext().setAlarm(homeViewModel.tripEnd.value!!.toLong(),
+                    title = getString(R.string.trip_to_end), description = homeViewModel.tripName.value.toString())
                 homeViewModel.updateSaveState(false)
             }
         }

@@ -1,18 +1,17 @@
 package com.example.tripso.ui.login
 
-import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.tripso.R
 import com.example.tripso.databinding.FragmentLoginBinding
 import com.example.tripso.data.DataStateResult
 import com.example.tripso.domain.util.Constants
+import com.example.tripso.domain.util.Utils
 
 
 class LoginFragment : Fragment() {
@@ -56,6 +55,8 @@ class LoginFragment : Fragment() {
             when(state){
                 is DataStateResult.Error -> {
                     loadingProgressBar.visibility = View.GONE
+                    Utils.showToast(R.string.error_sign_in)
+
                 }
                 is DataStateResult.Loading -> loadingProgressBar.visibility = View.VISIBLE
                 is DataStateResult.Success ->{
@@ -69,11 +70,6 @@ class LoginFragment : Fragment() {
         }
 
 
-    }
-
-    private fun showLoginFailed(@StringRes errorString: Int) {
-        val appContext = context?.applicationContext ?: return
-        Toast.makeText(appContext, errorString, Toast.LENGTH_LONG).show()
     }
 
     override fun onDestroyView() {

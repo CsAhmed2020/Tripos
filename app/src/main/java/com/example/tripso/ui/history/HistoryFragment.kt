@@ -1,7 +1,6 @@
 package com.example.tripso.ui.history
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tripso.R
 import com.example.tripso.data.DataStateResult
 import com.example.tripso.databinding.FragmentHistoryBinding
-import com.example.tripso.domain.model.Trip
 import com.example.tripso.ui.home.adapter.TripsAdapter
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -42,16 +40,6 @@ class HistoryFragment : Fragment() {
         tripsRecyclerView.layoutManager = LinearLayoutManager(this.requireContext())
         tripsRecyclerView.setHasFixedSize(true)
 
-        /*historyViewModel.trips.observe(viewLifecycleOwner){trips ->
-            Log.d("AhmedHome",trips.toString())
-            if (trips?.isNotEmpty() == true){
-                binding.loading.visibility = View.GONE
-                adapter = TripsAdapter(trips)
-                tripsRecyclerView.adapter = adapter
-            }else {
-                binding.loading.visibility = View.VISIBLE
-            }
-        }*/
 
         historyViewModel.lastTripsState.observe(viewLifecycleOwner){
             when(it){

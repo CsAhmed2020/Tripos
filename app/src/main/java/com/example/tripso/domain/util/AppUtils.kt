@@ -5,14 +5,17 @@ import android.os.Build
 import android.util.Patterns
 import android.widget.Toast
 import com.example.tripso.R
+import com.example.tripso.application.MyApplication.Companion.context
 import com.google.firebase.auth.FirebaseAuth
 import java.text.SimpleDateFormat
 import java.util.*
 
 
 object Utils {
-        fun showToast(context: Context?, stringResId: Int) {
-            Toast.makeText(context, stringResId, Toast.LENGTH_SHORT).show()
+
+        fun showToast(stringResId: Int) {
+            val appContext = context.applicationContext ?: return
+            Toast.makeText(appContext, stringResId, Toast.LENGTH_SHORT).show()
         }
 
         fun getCurrentUserId(): String = FirebaseAuth.getInstance().currentUser!!.uid

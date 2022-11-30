@@ -8,7 +8,6 @@
     <string name="btn_login">Log In</string>
     <string name="haven_not_account">You haven\'t an Account ?!</string>
     <string name="sign_up">Sign Up</string>
-    <!-- Strings related to login -->
     <string name="prompt_user_name">User Name</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
@@ -53,4 +52,6 @@
     <string name="your_next_trips">Your Next Trips</string>
     <string name="check_email">Check your email now</string>
     <string name="saved">Saved</string>
+    <string name="trip_ready">Are you ready for your trip!</string>
+    <string name="trip_to_end">What about ypur trip?!</string>
 </resources>

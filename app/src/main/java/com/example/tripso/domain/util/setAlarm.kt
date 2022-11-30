@@ -6,10 +6,13 @@ import android.content.Context
 import android.content.Intent
 
 
-fun Context.setAlarm(time:Long){
+fun Context.setAlarm(time:Long,title:String,description:String){
     val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
     val intent = Intent(this, TripAlarm::class.java)
-    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-    val pendingIntent = PendingIntent.getBroadcast(this, 0, intent,0)
+    intent.apply {
+        putExtra("title",title)
+        putExtra("description",description)
+    }
+    val pendingIntent = PendingIntent.getBroadcast(this, 0, intent,PendingIntent.FLAG_UPDATE_CURRENT)
     alarmManager.set(AlarmManager.RTC_WAKEUP, time, pendingIntent)
 }

@@ -53,4 +53,6 @@
     <string name="your_next_trips">الرحلات القادمة</string>
     <string name="check_email">راجع البريد الإلكتروني</string>
     <string name="saved">تم الحفظ</string>
+    <string name="trip_ready">هل أنت مستعد لبدء الرحلة</string>
+    <string name="trip_to_end">كيف كانت رحلتك</string>
 </resources>
